@@ -1,10 +1,18 @@
 {
   "name": "channelstate",
   "version": "0.1.0",
-  "author": "𝓻𝓮𝔁𝓮𝓻",
-  "license": "MIT",
-  "repository": "rexerwang/channelstore",
   "description": "A lightweight cross-context state management library built on the BroadcastChannel API.",
+  "keywords": [
+    "broadcastchannel",
+    "cross-context",
+    "state",
+    "management",
+    "store",
+    "react"
+  ],
+  "author": "𝓻𝓮𝔁𝓮𝓻",
+  "repository": "rexerwang/channelstate",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
