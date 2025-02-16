@@ -2,6 +2,10 @@
 
 ChannelState is a lightweight cross-context state management library built on the [BroadcastChannel API](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel), designed to provide efficient state synchronization across **same-origin** browser tabs, windows, and iframes.
 
+```sh
+npm install channelstate
+```
+
 ## Key Features
 
 - 🌐 Cross-context state synchronization (tabs/windows/iframes)
