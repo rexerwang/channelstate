@@ -1,0 +1,18 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: '*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}'
+      run: npx biome check --write {staged_files}
+      stage_fixed: true
+    prettier:
+      glob: '*.{html,json,css,scss,md,yml}'
+      run: npx prettier --write {staged_files}
+      stage_fixed: true
+
+pre-push:
+  parallel: true
+  commands:
+    typecheck:
+      glob: '*.{ts,tsx}'
+      run: pnpm -r typecheck

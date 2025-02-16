@@ -1,0 +1,35 @@
+{
+  "name": "examples",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "rsbuild dev",
+    "ii": "rm -rf node_modules && pnpm i",
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "pretest": "rsbuild dev & wait-on http://localhost:3000",
+    "posttest": "kill-port 3000"
+  },
+  "dependencies": {
+    "channelstate": "file:../",
+    "clsx": "^2.1.1",
+    "immer": "^10.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "use-sync-external-store": "^1.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@rsbuild/core": "^1.1.8",
+    "@rsbuild/plugin-react": "^1.1.0",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "kill-port": "^2.0.1",
+    "playwright": "^1.50.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "wait-on": "^8.0.2"
+  }
+}

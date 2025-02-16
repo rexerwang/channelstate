@@ -1,0 +1,50 @@
+{
+  "name": "channelstate",
+  "version": "0.0.0",
+  "author": "𝓻𝓮𝔁𝓮𝓻",
+  "license": "MIT",
+  "repository": "rexerwang/channelstore",
+  "description": "A lightweight cross-context state management library built on the BroadcastChannel API.",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./react": {
+      "types": "./dist/react.d.mts",
+      "default": "./dist/react.mjs"
+    },
+    "./vanilla": {
+      "types": "./dist/vanilla.d.mts",
+      "default": "./dist/vanilla.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check --write",
+    "format": "biome format --write && prettier --write .",
+    "release": "./scripts/release.sh"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.3",
+    "@types/react": "^19.0.0",
+    "@types/use-sync-external-store": "^0.0.6",
+    "lefthook": "^1.10.10",
+    "prettier": "^3.3.3",
+    "typescript": "^5.7.2",
+    "unbuild": "^3.3.1"
+  },
+  "peerDependencies": {
+    "immer": ">=9.0.6",
+    "react": ">=18.0.0",
+    "use-sync-external-store": ">=1.2.0"
+  },
+  "packageManager": "pnpm@10.0.0"
+}
