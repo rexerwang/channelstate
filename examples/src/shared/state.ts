@@ -18,12 +18,12 @@ export const initialState: IState = {
   },
 }
 
-export function useStateSnapshots<T>(store: ChannelStateApi<T>) {
+export function useStateSnapshots(store: ChannelStateApi<any>) {
   const [state] = useChannelState(store)
-  const [snapshots, setSnapshots] = useState<T[]>([])
+  const [snapshots, setSnapshots] = useState<string[]>([])
 
   useEffect(() => {
-    setSnapshots((prev) => [state, ...prev])
+    setSnapshots((prev) => [JSON.stringify(state), ...prev])
   }, [state])
 
   return snapshots

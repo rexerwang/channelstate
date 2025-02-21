@@ -62,10 +62,10 @@ export function Hello({ className, title, store }: IProps) {
       </div>
       <ul className='w-full flex-1 overflow-auto'>
         <p className='font-semibold text-lg'>Store Snapshots:</p>
-        {snapshots?.map((snapshot) => (
-          <li key={snapshot.hello.updateAt + snapshot.hello.message} className='m-1 font-mono font-thin text-xs italic'>
+        {snapshots.map((snapshot) => (
+          <li key={snapshot} className='m-1 font-mono font-thin text-xs italic'>
             <pre>
-              <code>{JSON.stringify(snapshot)}</code>
+              <code>{snapshot}</code>
             </pre>
           </li>
         ))}
