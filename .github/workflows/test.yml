@@ -34,7 +34,7 @@ jobs:
       - name: Run Lint checks
         run: |
           pnpm typecheck
-          pnpm check
+          pnpm biome lint
 
       - name: Run e2e tests
         run: |
