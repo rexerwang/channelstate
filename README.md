@@ -1,5 +1,8 @@
 # ChannelState
 
+[![](https://img.shields.io/npm/v/channelstate)](https://www.npmjs.com/package/channelstate)
+[![test](https://github.com/rexerwang/channelstate/actions/workflows/test.yml/badge.svg)](https://github.com/rexerwang/channelstate/actions/workflows/test.yml)
+
 ChannelState is a lightweight cross-context state management library built on the [BroadcastChannel API](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel), designed to provide efficient state synchronization across **same-origin** browser tabs, windows, and iframes.
 
 ```sh
