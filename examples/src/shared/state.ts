@@ -1,4 +1,5 @@
 import type { ChannelStateApi } from 'channelstate'
+import { useChannelState } from 'channelstate/react'
 import { useEffect, useState } from 'react'
 
 export interface IState {
@@ -18,13 +19,12 @@ export const initialState: IState = {
 }
 
 export function useStateSnapshots<T>(store: ChannelStateApi<T>) {
-  const [snapshots, setSnapshots] = useState([store.getState()])
+  const [state] = useChannelState(store)
+  const [snapshots, setSnapshots] = useState<T[]>([])
 
   useEffect(() => {
-    return store.subscribe((state) => {
-      setSnapshots((v) => [state, ...v])
-    })
-  }, [store])
+    setSnapshots((prev) => [state, ...prev])
+  }, [state])
 
   return snapshots
 }
