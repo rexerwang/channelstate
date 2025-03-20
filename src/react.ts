@@ -1,17 +1,24 @@
 import { type Draft, produce } from 'immer'
 import { useDebugValue, useSyncExternalStore } from 'react'
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/with-selector'
-import type { ChannelStateApi } from './index'
+import type { ChannelStateApi, CreateChannelStateOptions } from './impl/createChannelStateImpl'
+import {
+  type CreatePrimaryChannelStateOptions,
+  createPrimaryChannelStateImpl,
+} from './impl/createPrimaryChannelStateImpl'
+import {
+  type CreateReplicaChannelStateOptions,
+  createReplicaChannelStateImpl,
+} from './impl/createReplicaChannelStateImpl'
 import type { MaybePartial } from './vanilla'
 
-export type Return<T, U = T> = readonly [
-  state: U,
-  setState: (nextStateOrUpdater: MaybePartial<T> | ((draft: Draft<T>) => void), replace?: boolean) => void,
-]
+export type SetChannelState<T> = (
+  nextStateOrUpdater: MaybePartial<T> | ((draft: Draft<T>) => void),
+  replace?: boolean,
+) => void
 
-export function useChannelState<T>(api: ChannelStateApi<T>): Return<T> {
+function useChannelStateImpl<T>(api: ChannelStateApi<T>): [state: T, setState: SetChannelState<T>] {
   const state = useSyncExternalStore(api.subscribe, api.getState, api.getInitialState)
-  const setState: Return<T>[1] = (nextStateOrUpdater, replace) => {
+  const setState: SetChannelState<T> = (nextStateOrUpdater, replace) => {
     const nextState =
       typeof nextStateOrUpdater === 'function' ? produce(api.getState(), nextStateOrUpdater as any) : nextStateOrUpdater
     api.setState(nextState, replace)
@@ -22,19 +29,32 @@ export function useChannelState<T>(api: ChannelStateApi<T>): Return<T> {
   return [state, setState]
 }
 
-export function useChannelStateWithSelector<T, U = T>(
-  api: ChannelStateApi<T>,
-  selector: (state: T) => U = (v: any) => v,
-  equalityFn?: (a: U, b: U) => boolean,
-): Return<T, U> {
-  const state = useSyncExternalStoreWithSelector(api.subscribe, api.getState, api.getInitialState, selector, equalityFn)
-  const setState: Return<T, U>[1] = (nextStateOrUpdater, replace) => {
-    const nextState =
-      typeof nextStateOrUpdater === 'function' ? produce(api.getState(), nextStateOrUpdater as any) : nextStateOrUpdater
-    api.setState(nextState, replace)
-  }
+export type UseChannelState<T> = ChannelStateApi<T> & (() => [state: T, setState: SetChannelState<T>])
 
-  useDebugValue(state)
+export function create<TState extends object, TOption extends CreateChannelStateOptions>(
+  isPrimary: boolean,
+  channelName: string,
+  initialState: TState,
+  options?: TOption,
+): UseChannelState<TState> {
+  const createImpl = isPrimary ? createPrimaryChannelStateImpl : createReplicaChannelStateImpl
+  const api = createImpl(channelName, initialState, options)
+  const useChannelState = () => useChannelStateImpl(api)
+  return Object.assign(useChannelState, api)
+}
 
-  return [state, setState]
+create.primary = <T extends object>(
+  channelName: string,
+  initialState: T,
+  options?: CreatePrimaryChannelStateOptions,
+) => {
+  return create(true, channelName, initialState, options)
+}
+
+create.replica = <T extends object>(
+  channelName: string,
+  initialState: T,
+  options?: CreateReplicaChannelStateOptions,
+) => {
+  return create(false, channelName, initialState, options)
 }

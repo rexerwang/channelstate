@@ -3,7 +3,7 @@ import { type CreateChannelStateOptions, createChannelStateImpl } from './create
 
 export interface CreatePrimaryChannelStateOptions extends CreateChannelStateOptions {}
 
-export function createPrimaryChannelState<TState>(
+export function createPrimaryChannelStateImpl<TState>(
   channelName: string,
   initialState: TState,
   options?: CreatePrimaryChannelStateOptions,

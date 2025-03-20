@@ -1,5 +1,3 @@
-export * from './vanilla/shallow'
-
 export type MaybePartial<T> = T | Partial<T>
 
 export type StoreApi<T> = {

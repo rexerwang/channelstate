@@ -1,3 +1,2 @@
-export * from './channel/createPrimaryChannelState'
-export * from './channel/createReplicaChannelState'
-export type * from './channel/createChannelStateImpl'
+export type * from './impl/createChannelStateImpl'
+export * from './react'
