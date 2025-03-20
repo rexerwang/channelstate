@@ -1,11 +1,11 @@
 import '../../main.css'
 
-import { createPrimaryChannelState } from 'channelstate'
+import { create } from 'channelstate'
 import { createRoot } from 'react-dom/client'
 import { Hello } from '../../shared/Hello'
 import { initialState } from '../../shared/state'
 
-const store = createPrimaryChannelState('store', initialState)
+const store = create.primary('store', initialState)
 
 function App() {
   return (

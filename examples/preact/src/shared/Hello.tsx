@@ -1,6 +1,6 @@
-import type { ChannelStateApi } from 'channelstate'
-import { useChannelStateWithSelector } from 'channelstate/react'
-import { shallow } from 'channelstate/vanilla'
+import type { UseChannelState } from 'channelstate'
+import { useChannelStateWithSelector } from 'channelstate/traditional'
+import { shallow } from 'channelstate/vanilla/shallow'
 import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 import { type IState, useStateSnapshots } from './state'
@@ -8,11 +8,12 @@ import { type IState, useStateSnapshots } from './state'
 interface IProps {
   className?: string
   title: string
-  store: ChannelStateApi<IState>
+  store: UseChannelState<IState>
 }
 
 export function Hello({ className, title, store }: IProps) {
-  const [message, setState] = useChannelStateWithSelector(store, (s) => s.hello.message, shallow)
+  const message = useChannelStateWithSelector(store, (s) => s.hello.message, shallow)
+  const [, setState] = store()
   const snapshots = useStateSnapshots(store)
   const [auto, setAuto] = useState(false)
 
