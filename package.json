@@ -1,6 +1,6 @@
 {
   "name": "channelstate",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A lightweight cross-context state management library built on the BroadcastChannel API.",
   "keywords": [
     "broadcastchannel",
