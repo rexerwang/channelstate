@@ -37,6 +37,7 @@
     "build": "unbuild",
     "typecheck": "tsc --noEmit",
     "check": "biome check --write && prettier --write .",
+    "test:e2e": "./scripts/test.sh",
     "release": "./scripts/release.sh"
   },
   "devDependencies": {

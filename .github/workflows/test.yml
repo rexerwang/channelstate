@@ -37,7 +37,4 @@ jobs:
           pnpm biome lint
 
       - name: Run e2e tests
-        run: |
-          pnpm -F examples install
-          pnpm -F examples exec playwright install
-          pnpm -F examples test
+        run: pnpm test:e2e
